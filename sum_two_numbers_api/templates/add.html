@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Page
+{% endblock %}
+
+{% block main %}
+    <form action="/add" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="param1" placeholder="Number 1" type="text"/>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="param2" placeholder="Number 2" type="text"/>
+        </div>
+        <button class="btn btn-primary" type="submit">ADD THOSE NUMBERS!</button>
+    </form>
+
+{% endblock %}
