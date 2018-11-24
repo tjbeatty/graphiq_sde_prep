@@ -26,7 +26,7 @@ def index():
 
 @app.route('/add', methods=["GET", "POST"])
 def add_two_numbers():
-    if 'param1' and 'param2' in request.args:
+    if 'param1' in request.args and 'param2' in request.args:
         num1 = request.args('param1')
         num2 = request.args('param2')
         return "Sum of {} and {} is {}".format(num1, num2, num1+num2)
@@ -37,7 +37,7 @@ def add_two_numbers():
         num1 = request.form.get("param1")
         num2 = request.form.get("param2")
 
-        render_template("added.html", param1=num1, param2=num2)
+        return render_template("added.html", param1=num1, param2=num2, sum=num1 + num2)
 
     else:
         return render_template('add.html')
