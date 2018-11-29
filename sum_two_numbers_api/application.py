@@ -11,23 +11,6 @@ def apology(message, code=400):
     return render_template("apology.html", top=code, bottom=message), code
 
 
-def request_args():
-    """Get parameters from URL for API"""
-
-    num1 = float(request.args['param1'])
-    num2 = float(request.args['param2'])
-
-    return [num1, num2]
-
-
-def request_form_get():
-    """Get parameters from text box on page"""
-    num1 = float(request.form.get("param1"))
-    num2 = float(request.form.get("param2"))
-
-    return [num1, num2]
-
-
 def make_ints(num1, num2):
     """Convert numbers to ints if they're integers"""
     if num1 % 1 == 0 and num2 % 1 == 0:
@@ -39,7 +22,10 @@ def make_ints(num1, num2):
 
 def api_params():
     """API call + make integers"""
-    [num1, num2] = request_args()
+
+    num1 = float(request.args['param1'])
+    num2 = float(request.args['param2'])
+
     [num1, num2] = make_ints(num1, num2)
 
     return [num1, num2]
@@ -47,7 +33,9 @@ def api_params():
 
 def post_nums():
     """Numbers from form + make integers"""
-    [num1, num2] = request_form_get()
+
+    num1 = float(request.form.get("param1"))
+    num2 = float(request.form.get("param2"))
     [num1, num2] = make_ints(num1, num2)
 
     return [num1, num2]
