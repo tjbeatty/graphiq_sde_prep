@@ -6,7 +6,12 @@
 
 {% block main %}
     <div>
-        <span>{{param1}} times {{param2}} is {{sum}}</span><br>
+        <span>{{param1}} times {{param2}} is {{sum}}</span><br><br>
+    </div>
+    <div>
+        <form action="/multiply" method="get">
+            <button class="btn btn-primary" type="submit">MULTIPLY AGAIN!</button>
+        </form>
     </div>
 
 {% endblock %}

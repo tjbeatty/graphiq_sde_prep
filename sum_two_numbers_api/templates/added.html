@@ -6,7 +6,12 @@
 
 {% block main %}
     <div>
-        <span>Sum of {{param1}} and {{param2}} is {{sum}}</span><br>
+        <span>Sum of {{param1}} and {{param2}} is {{sum}}</span><br><br>
+    </div>
+    <div>
+        <form action="/add" method="get">
+            <button class="btn btn-primary" type="submit">ADD AGAIN!</button>
+        </form>
     </div>
 
 {% endblock %}

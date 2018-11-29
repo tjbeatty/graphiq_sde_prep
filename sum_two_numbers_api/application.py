@@ -7,19 +7,13 @@ app = Flask(__name__)
 
 def apology(message, code=400):
     """Render message as an apology to user."""
-    def escape(s):
-        """
-        Escape special characters.
 
-        """
-        for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
-                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
-            s = s.replace(old, new)
-        return s
-    return render_template("apology.html", top=code, bottom=escape(message)), code
+    return render_template("apology.html", top=code, bottom=message), code
 
 
 def request_args():
+    """Get parameters from URL for API"""
+
     num1 = float(request.args['param1'])
     num2 = float(request.args['param2'])
 
@@ -27,6 +21,7 @@ def request_args():
 
 
 def request_form_get():
+    """Get parameters from text box on page"""
     num1 = float(request.form.get("param1"))
     num2 = float(request.form.get("param2"))
 
@@ -34,6 +29,7 @@ def request_form_get():
 
 
 def make_ints(num1, num2):
+    """Convert numbers to ints if they're integers"""
     if num1 % 1 == 0 and num2 % 1 == 0:
         num1 = int(num1)
         num2 = int(num2)
@@ -42,6 +38,7 @@ def make_ints(num1, num2):
 
 
 def api_params():
+    """API call + make integers"""
     [num1, num2] = request_args()
     [num1, num2] = make_ints(num1, num2)
 
@@ -49,17 +46,20 @@ def api_params():
 
 
 def post_nums():
+    """Numbers from form + make integers"""
     [num1, num2] = request_form_get()
     [num1, num2] = make_ints(num1, num2)
 
     return [num1, num2]
 
 
+# Homepage
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
+# Addition page
 @app.route('/add/', methods=["GET", "POST"])
 @app.route('/add', methods=["GET", "POST"])
 def add_two_numbers():
@@ -70,8 +70,14 @@ def add_two_numbers():
 
         return "Sum of {} and {} is {}".format(num1, num2, num1 + num2)
 
+    # If user only submits one parameter
+    elif 'param1' in request.args or 'param2' in request.args:
+        return "Please submit two numbers to add"
+
     # If user submits parameters through browser
     elif request.method == "POST":
+
+        # If user does not enter both numbers in form
         if not (request.form.get("param1") and request.form.get("param2")):
             return apology("Please enter two numbers to add", 400)
 
@@ -84,6 +90,7 @@ def add_two_numbers():
         return render_template('add.html')
 
 
+# Subtraction page
 @app.route('/subtract/', methods=["GET", "POST"])
 @app.route('/subtract', methods=["GET", "POST"])
 def subtract_two_numbers():
@@ -93,6 +100,10 @@ def subtract_two_numbers():
         [num1, num2] = api_params()
 
         return "{} minus {} is {}".format(num1, num2, num1 - num2)
+
+    # If user only submits one parameter
+    elif 'param1' in request.args or 'param2' in request.args:
+        return "Please submit two numbers to subtract"
 
     # If user submits parameters through browser
     elif request.method == "POST":
@@ -108,6 +119,7 @@ def subtract_two_numbers():
         return render_template('subtract.html')
 
 
+# Multiplication page
 @app.route('/multiply/', methods=["GET", "POST"])
 @app.route('/multiply', methods=["GET", "POST"])
 def multiply_two_numbers():
@@ -117,6 +129,10 @@ def multiply_two_numbers():
         [num1, num2] = api_params()
 
         return "{} times {} is {}".format(num1, num2, num1 * num2)
+
+    # If user only submits one parameter
+    elif 'param1' in request.args or 'param2' in request.args:
+        return "Please submit two numbers to multiply"
 
     # If user submits parameters through browser
     elif request.method == "POST":
@@ -132,6 +148,7 @@ def multiply_two_numbers():
         return render_template('multiply.html')
 
 
+# Division Page
 @app.route('/divide/', methods=["GET", "POST"])
 @app.route('/divide', methods=["GET", "POST"])
 def divide_two_numbers():
@@ -141,6 +158,10 @@ def divide_two_numbers():
         [num1, num2] = api_params()
 
         return "{} divided by {} is {}".format(num1, num2, num1 / num2)
+
+    # If user only submits one parameter
+    elif 'param1' in request.args or 'param2' in request.args:
+        return "Please submit two numbers to divide"
 
     # If user submits parameters through browser
     elif request.method == "POST":

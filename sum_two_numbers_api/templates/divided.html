@@ -6,7 +6,12 @@
 
 {% block main %}
     <div>
-        <span>{{param1}} divided by {{param2}} is {{sum}}</span><br>
+        <span>{{param1}} divided by {{param2}} is {{sum}}</span><br><br>
+    </div>
+    <div>
+        <form action="/divide" method="get">
+            <button class="btn btn-primary" type="submit">DIVIDE AGAIN!</button>
+        </form>
     </div>
 
 {% endblock %}
