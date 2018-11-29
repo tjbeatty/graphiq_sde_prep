@@ -36,6 +36,7 @@ def post_nums():
 
     num1 = float(request.form.get("param1"))
     num2 = float(request.form.get("param2"))
+    
     [num1, num2] = make_ints(num1, num2)
 
     return [num1, num2]
