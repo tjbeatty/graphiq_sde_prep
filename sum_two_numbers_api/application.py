@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template
 
+# HTML_ERROR_CODE = 400 -> propagate down
+# Define constants at top or if there are many, create a constant file that is imported
 
 # Configure application
 app = Flask(__name__)
 
 
-def apology(message, code=400):
+def apology(message, code=400):  # Make constants at top of file not inline
     """Render message as an apology to user."""
 
     return render_template("apology.html", top=code, bottom=message), code
@@ -13,12 +15,14 @@ def apology(message, code=400):
 
 def make_ints(num1, num2):
     """Convert numbers to ints if they're integers"""
+    # Use typeof() as a more pythonic way to accomplish the same thing
     if num1 % 1 == 0 and num2 % 1 == 0:
         num1 = int(num1)
         num2 = int(num2)
 
     return [num1, num2]
 
+# Separate out logic and display a bit more
 
 def api_params():
     """API call + make integers"""
@@ -37,6 +41,7 @@ def post_nums():
     num1 = float(request.form.get("param1"))
     num2 = float(request.form.get("param2"))
     
+    # DO math up front, and worry about displaying the data later in code
     [num1, num2] = make_ints(num1, num2)
 
     return [num1, num2]
